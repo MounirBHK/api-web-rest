@@ -4,7 +4,7 @@ abstract class Controleur
     protected $modele; // Référence au "Modele" correspondant au "Controleur"
     // Tableau associatif contenant l'entête de statut (Status Header) et le corps 
     // (BODY) du message HTTP de réponse. Ce tableau aura la forme suivante : 
-    // ['entete_staut'=> 'Valeur...', 'corps'=>'Valeur du corps du message']
+    // ['entete_statut'=> 'Valeur...', 'corps'=>'Valeur du corps du message']
     protected $reponse; 
 
     function __construct($nomModele)
@@ -26,6 +26,9 @@ abstract class Controleur
         header($this->reponse['entete_statut']);
         if($this->reponse['corps']) {
             echo json_encode($this->reponse['corps']);
+        }
+        else {
+            echo json_encode(['erreur' => 'Rien trouvé']);
         }
     }
 

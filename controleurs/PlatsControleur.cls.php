@@ -1,32 +1,37 @@
 <?php
 class PlatsControleur extends Controleur {
-    protected function tout($params)
+    /**
+     * 
+     */
+    public function tout($params)
     {
         $this->reponse['entete_statut'] = 'HTTP/1.1 200 OK';
-        $this->reponse['corps'] = $this->modele->tout($params);
+        $this->reponse['corps'] = $this->modele->tout($params); 
     }
 
-    protected function un($id)
+    public function un($id)
+    {
+        $this->reponse['entete_statut'] = 'HTTP/1.1 200 OK';
+        $this->reponse['corps'] = $this->modele->un($id);
+    }
+
+    public function ajouter($plat)
+    {
+        $this->reponse['entete_statut'] = 'HTTP/1.1 201 Created';
+        $this->reponse['corps'] = ['pla_id' => $this->modele->ajouter(json_decode($plat))];
+    }
+
+    public function remplacer($id, $entite)
     {
 
     }
 
-    protected function ajouter($entite)
+    public function changer($id, $fragmentEntite)
     {
 
     }
 
-    protected function remplacer($id, $entite)
-    {
-
-    }
-
-    protected function changer($id, $fragmentEntite)
-    {
-
-    }
-
-    protected function retirer($id)
+    public function retirer($id)
     {
 
     }

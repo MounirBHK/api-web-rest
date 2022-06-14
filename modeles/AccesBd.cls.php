@@ -36,7 +36,12 @@ class AccesBd
      */
     protected function lire($sql, $params=[]) {
         $this->soumettre($sql, $params);
-        return $this->requete->fetchAll(PDO::FETCH_GROUP);
+        return $this->requetePdo->fetchAll(PDO::FETCH_GROUP);
+    }
+
+    protected function lireUn($sql, $params=[]) {
+        $this->soumettre($sql, $params);
+        return $this->requetePdo->fetch();
     }
 
     /**

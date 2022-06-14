@@ -1,4 +1,8 @@
 <?php
+// Front Controller (Contrôleur Pilote)
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET,POST,PUT,PATCH,DELETE");
+
 $urlRequete = $_SERVER['REQUEST_URI'];
 
 $routeur = new Routeur(
@@ -37,11 +41,63 @@ class Routeur
     {
         // Exemples d'URLs : 
         // /index.php/plats, /plats/17, /vins, /vins/5
-        $entite = "plats";
-        $id = "";
+        $collection = "plats";
+        $idEntite = "";
 
         $partiesRoute = explode('/', $this->route);
-        print_r($partiesRoute);
-        
+    
+        if(count($partiesRoute) > 2 && trim(urldecode($partiesRoute[2])) != '') {
+            $collection = trim(urldecode($partiesRoute[2]));
+            if(count($partiesRoute) > 3 && trim(urldecode($partiesRoute[3])) != '') {
+                $idEntite = trim(urldecode($partiesRoute[3]));
+            }
+        }
+
+        $nomControleur = ucfirst($collection).'Controleur';
+        $nomModele = ucfirst($collection).'Modele';
+
+        if(class_exists($nomControleur)) {
+            $controleur = new $nomControleur($nomModele);
+            switch($this->methode) {
+                case 'GET': 
+                    if(is_numeric($idEntite)) {
+                        $controleur->un($idEntite);
+                    }
+                    else {
+                        $controleur->tout($this->params);
+                    }
+                    break;
+                case 'POST': 
+                    $controleur->ajouter(file_get_contents('php://input'));
+                    break;
+                case 'PUT': 
+                    if(is_numeric($idEntite)) {
+                        $controleur->remplacer($idEntite, file_get_contents('php://input'));
+                    }
+                    else {
+                        // Erreur : A compléter...
+                    }
+                    break;
+                case 'PATCH': 
+                    if(is_numeric($idEntite)) {
+                        $controleur->changer($idEntite, file_get_contents('php://input'));
+                    }
+                    else {
+                        // Erreur : A compléter...
+                    }
+                    break;
+                case 'DELETE': 
+                    if(is_numeric($idEntite)) {
+                        $controleur->retirer($idEntite);
+                    }
+                    else {
+                        // Erreur : A compléter...
+                    }
+                    break;
+            }
+        } 
+        else {
+            exit("Mauvaise requête (à compléter)");
+        }
     }
 }
