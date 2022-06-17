@@ -1,32 +1,33 @@
 <?php
 class CategoriesControleur extends Controleur {
-    protected function tout($params)
+    public function tout($params)
     {
+        $groupe = $params['groupe'] ?? false;
         $this->reponse['entete_statut'] = 'HTTP/1.1 200 OK';
-        $this->reponse['corps'] = $this->modele->tout($params);
+        $this->reponse['corps'] = $this->modele->tout($groupe);
     }
 
-    protected function un($id)
+    public function un($id)
     {
 
     }
 
-    protected function ajouter($entite)
+    public function ajouter($entite)
     {
 
     }
 
-    protected function remplacer($id, $entite)
+    public function remplacer($id, $entite)
     {
 
     }
 
-    protected function changer($id, $fragmentEntite)
+    public function changer($id, $fragmentEntite)
     {
 
     }
 
-    protected function retirer($id)
+    public function retirer($id)
     {
 
     }

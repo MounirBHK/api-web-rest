@@ -1,10 +1,10 @@
 <?php
 class PlatsModele extends AccesBd 
 {
-    public function tout($params)
+    public function tout($groupe)
     {
         return $this->lire("SELECT cat_nom, plat.* FROM plat JOIN categorie 
-            ON pla_cat_id_ce=cat_id");
+            ON pla_cat_id_ce=cat_id", $groupe);
     }
 
     public function un($id) {

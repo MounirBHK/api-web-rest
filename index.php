@@ -1,13 +1,16 @@
 <?php
 // Front Controller (Contrôleur Pilote)
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET,POST,PUT,PATCH,DELETE");
 
 $urlRequete = $_SERVER['REQUEST_URI'];
+// echo $urlRequete;
+// echo "\n\n";
 
 $routeur = new Routeur(
     parse_url($urlRequete, PHP_URL_PATH),
-    parse_url($urlRequete, PHP_URL_QUERY),
+    $_GET,
     $_SERVER['REQUEST_METHOD']
 );
 

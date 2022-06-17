@@ -34,9 +34,12 @@ class AccesBd
      * @return array Tableau associatif (colonne de groupage) contenant des tableaux
      *                  des données groupées
      */
-    protected function lire($sql, $params=[]) {
+    protected function lire($sql, $groupe=PDO::FETCH_GROUP, $params=[]) {
         $this->soumettre($sql, $params);
-        return $this->requetePdo->fetchAll(PDO::FETCH_GROUP);
+        if($groupe !== PDO::FETCH_GROUP) {
+            return $this->requetePdo->fetchAll();
+        }
+        return $this->requetePdo->fetchAll($groupe);
     }
 
     protected function lireUn($sql, $params=[]) {

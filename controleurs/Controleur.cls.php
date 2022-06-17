@@ -15,12 +15,12 @@ abstract class Controleur
     }
 
     // Contrat pour les méthodes spécifiques de chaque contrôleur concret
-    protected abstract function tout($params);
-    protected abstract function un($id);
-    protected abstract function ajouter($entite);
-    protected abstract function remplacer($id, $entite);
-    protected abstract function changer($id, $fragmentEntite);
-    protected abstract function retirer($id);
+    public abstract function tout($params);
+    public abstract function un($id);
+    public abstract function ajouter($entite);
+    public abstract function remplacer($id, $entite);
+    public abstract function changer($id, $fragmentEntite);
+    public abstract function retirer($id);
 
     private function produireReponse() {
         header($this->reponse['entete_statut']);
