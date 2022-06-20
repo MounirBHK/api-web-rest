@@ -22,18 +22,20 @@ class PlatsControleur extends Controleur {
         $this->reponse['corps'] = ['pla_id' => $this->modele->ajouter(json_decode($plat))];
     }
 
-    public function remplacer($id, $entite)
+    public function remplacer($id, $plat)
     {
-
+        $this->reponse['entete_statut'] = 'HTTP/1.1 200 OK';
+        $this->reponse['corps'] = $this->modele->remplacer($id, json_decode($plat));
     }
 
-    public function changer($id, $fragmentEntite)
+    public function changer($id, $fragmentPlat)
     {
 
     }
 
     public function retirer($id)
     {
-
+        $this->reponse['entete_statut'] = 'HTTP/1.1 200 OK';
+        $this->reponse['corps'] = ['nombre' => $this->modele->retirer($id)];
     }
 }

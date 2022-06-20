@@ -79,6 +79,7 @@ class AccesBd
      * @return int Nombre d'enregistrements affectés
      */
     protected function supprimer($sql, $params=[]) {
-        return $this->modifier($sql, $params=[]);
+        $this->soumettre($sql, $params);
+        return $this->requetePdo->rowCount();
     }
 }

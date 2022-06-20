@@ -18,4 +18,24 @@ class PlatsModele extends AccesBd
             VALUES (?, ?, ?, ?, ?)"
             , [$plat->pla_nom, $plat->pla_detail, $plat->pla_portion, $plat->pla_prix, $plat->pla_cat_id_ce]);
     }
+
+    public function retirer($id) {
+        return $this->supprimer("DELETE FROM plat WHERE pla_id=:pla_id", ['pla_id'=>$id]);
+    }
+
+
+    public function remplacer($id, $plat) {
+        return $this->modifier("UPDATE plat SET
+                    pla_nom=?, pla_detail=?, pla_portion=?, pla_prix=?, pla_cat_id_ce=?
+                    WHERE pla_id=?"
+            , [
+                $plat->pla_nom, 
+                $plat->pla_detail, 
+                $plat->pla_portion, 
+                $plat->pla_prix, 
+                $plat->pla_cat_id_ce,
+                $id
+            ]);
+    }
+
 }
