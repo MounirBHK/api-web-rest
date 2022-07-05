@@ -1,15 +1,24 @@
 <?php
+
+/**
+ * AccesBd
+ */
 class AccesBd 
 {
     private $pdo = null;    // Objet de Connexion (PDO)
     private $requetePdo = null; // Objet de requête paramétrée PDO (PDOStatement)
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     function __construct()
     {
         if(!$this->pdo) {
             $options = [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ];
             $this->pdo = new PDO("mysql:host=localhost; dbname=leila; charset=utf8"
-                , 'root', '1234', $options);
+                , 'root', '', $options);
         }
     }
     
@@ -41,7 +50,14 @@ class AccesBd
         }
         return $this->requetePdo->fetchAll($groupe);
     }
-
+    
+    /**
+     * lireUn
+     *
+     * @param  mixed $sql
+     * @param  mixed $params
+     * @return void
+     */
     protected function lireUn($sql, $params=[]) {
         $this->soumettre($sql, $params);
         return $this->requetePdo->fetch();

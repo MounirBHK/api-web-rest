@@ -16,12 +16,23 @@ $routeur = new Routeur(
 
 $routeur->invoquerRoute();
 
+/**
+ * Routeur
+ */
 class Routeur 
 {
     private $route = '';
     private $params = '';
     private $methode = '';
-
+    
+    /**
+     * __construct
+     *
+     * @param  mixed $r
+     * @param  mixed $p
+     * @param  mixed $m
+     * @return void
+     */
     function __construct($r, $p, $m)
     {
         $this->route = $r;
@@ -39,7 +50,12 @@ class Routeur
             }
         });
     }
-
+    
+    /**
+     * invoquerRoute
+     *
+     * @return void
+     */
     public function invoquerRoute()
     {
         // Exemples d'URLs : 
@@ -49,10 +65,10 @@ class Routeur
 
         $partiesRoute = explode('/', $this->route);
     
-        if(count($partiesRoute) > 2 && trim(urldecode($partiesRoute[2])) != '') {
-            $collection = trim(urldecode($partiesRoute[2]));
-            if(count($partiesRoute) > 3 && trim(urldecode($partiesRoute[3])) != '') {
-                $idEntite = trim(urldecode($partiesRoute[3]));
+        if(count($partiesRoute) > 5 && trim(urldecode($partiesRoute[5])) != '') {
+            $collection = trim(urldecode($partiesRoute[5]));
+            if(count($partiesRoute) > 6 && trim(urldecode($partiesRoute[6])) != '') {
+                $idEntite = trim(urldecode($partiesRoute[6]));
             }
         }
 

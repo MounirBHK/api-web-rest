@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Controleur
+ */
 abstract class Controleur 
 {
     protected $modele; // Référence au "Modele" correspondant au "Controleur"
@@ -6,7 +10,13 @@ abstract class Controleur
     // (BODY) du message HTTP de réponse. Ce tableau aura la forme suivante : 
     // ['entete_statut'=> 'Valeur...', 'corps'=>'Valeur du corps du message']
     protected $reponse; 
-
+    
+    /**
+     * __construct
+     *
+     * @param  mixed $nomModele
+     * @return void
+     */
     function __construct($nomModele)
     {
         if(class_exists($nomModele)) {
@@ -21,7 +31,12 @@ abstract class Controleur
     public abstract function remplacer($id, $entite);
     public abstract function changer($id, $fragmentEntite);
     public abstract function retirer($id);
-
+    
+    /**
+     * produireReponse
+     *
+     * @return void
+     */
     private function produireReponse() {
         header($this->reponse['entete_statut']);
         if($this->reponse['corps']) {
@@ -31,7 +46,12 @@ abstract class Controleur
             echo json_encode(['erreur' => 'Rien trouvé']);
         }
     }
-
+    
+    /**
+     * __destruct
+     *
+     * @return void
+     */
     function __destruct()
     {
         $this->produireReponse();
